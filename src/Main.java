@@ -8,41 +8,56 @@ public class Main {
         System.out.println("Введите первое число");
         double operand1 = scanner.nextDouble();
 
-        System.out.println("Введите знак операции: +, -, *, /.");
-        char operation = scanner.next().charAt(0);
+        while (true) {
+            System.out.println("Введите знак операции: +, -, *, /. Или команду: C - сброс, S - выход");
+            char operation = scanner.next().charAt(0);
 
-        System.out.println("Введите второе число");
-        double operand2 = scanner.nextDouble();
+            if (operation == 's' || operation == 'S') {
+                break;
+            }
 
-        double result = 0;
-        boolean hasError = false;
+            if (operation == 'c' || operation == 'C') {
+                System.out.println("Результат сброшен. Введите первое число");
+                operand1 = scanner.nextDouble();
+                continue;
+            }
 
-        switch (operation) {
-            case '+':
-                result = operand1 + operand2;
-                break;
-            case '-':
-                result = operand1 - operand2;
-                break;
-            case '*':
-                result = operand1 * operand2;
-                break;
-            case '/':
-                if (operand2 == 0) {
-                    System.out.println("Ошибка. Делить на ноль нельзя!");
-                    hasError = true;
+            System.out.println("Введите второе число");
+            double operand2 = scanner.nextDouble();
+
+            double result = 0;
+            boolean hasError = false;
+
+            switch (operation) {
+                case '+':
+                    result = operand1 + operand2;
                     break;
-                }
-                result = operand1 / operand2;
-                break;
-            default:
-                System.out.println("Операция не поддерживается");
-                hasError = true;
+                case '-':
+                    result = operand1 - operand2;
+                    break;
+                case '*':
+                    result = operand1 * operand2;
+                    break;
+                case '/':
+                    if (operand2 == 0) {
+                        System.out.println("Ошибка. Делить на ноль нельзя!");
+                        hasError = true;
+                        break;
+                    }
+                    result = operand1 / operand2;
+                    break;
+                default:
+                    System.out.println("Операция не поддерживается");
+                    hasError = true;
+            }
+
+            if (!hasError) {
+                operand1 = result;
+                System.out.println("Ваш результат равен: " + result);
+            }
         }
 
-        if (!hasError) {
-            System.out.println("Ваш результат равен: " + result);
-        }
-
+        System.out.println("Калькулятор выключен");
+        scanner.close();
     }
 }
